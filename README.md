@@ -1,4 +1,4 @@
-# FoodElxpro 2
+# FoodElxpro
 
 To start your Phoenix server:
 
