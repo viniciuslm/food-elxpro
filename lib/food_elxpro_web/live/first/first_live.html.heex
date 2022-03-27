@@ -1,7 +1,7 @@
 <%= @total %>
 
 <form phx-submit="save">
-    <input type="text" name="component" />
+    <%= select :form, :component, @components, selected: @component %>
     <button>Inc component</button>
 </form>
 
