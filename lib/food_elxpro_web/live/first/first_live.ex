@@ -15,6 +15,8 @@ defmodule FoodElxproWeb.FirstLive do
 
   def handle_event("save", %{"form" => %{"component" => component}}, socket) do
     send_update(IncComponent, id: "inc-" <> component, inc: 1)
-    {:noreply, socket |> update(:total, fn x -> x + 1 end) |> update(:component, fn _ -> component end)}
+
+    {:noreply,
+     socket |> update(:total, fn x -> x + 1 end) |> update(:component, fn _ -> component end)}
   end
 end

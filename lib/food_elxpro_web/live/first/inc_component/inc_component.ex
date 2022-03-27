@@ -1,4 +1,4 @@
-defmodule FoodElxproWeb.First.IncComponent  do
+defmodule FoodElxproWeb.First.IncComponent do
   use FoodElxproWeb, :live_component
 
   def update(%{inc: value}, socket) do
