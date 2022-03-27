@@ -1,4 +1,7 @@
 defmodule FoodElxproWeb.First.IncComponent do
+  @moduledoc """
+  Live Component IncComponent
+  """
   use FoodElxproWeb, :live_component
 
   def update(%{inc: value}, socket) do

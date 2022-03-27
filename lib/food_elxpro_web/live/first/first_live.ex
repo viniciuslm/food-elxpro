@@ -1,4 +1,7 @@
 defmodule FoodElxproWeb.FirstLive do
+  @moduledoc """
+  Live View FirstLive
+  """
   use FoodElxproWeb, :live_view
   alias FoodElxproWeb.First.IncComponent
 
