@@ -17,6 +17,7 @@ defmodule FoodElxproWeb.Router do
   scope "/", FoodElxproWeb do
     pipe_through :browser
 
+    live "/first", FirstLive, :index
     get "/", PageController, :index
   end
 
