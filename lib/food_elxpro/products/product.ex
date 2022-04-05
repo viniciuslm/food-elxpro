@@ -5,7 +5,7 @@ defmodule FoodElxpro.Products.Product do
   @fields ~w/description/a
   @required_fields ~w/name price size/a
 
-  @primary_key {:id, :binary_id, autogenerete: true}
+  @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "products" do
     field :name, :string

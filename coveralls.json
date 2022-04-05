@@ -12,5 +12,5 @@
     ],
     "treat_no_relevant_line_as_covered": true,
     "output_dir": "cover/",
-    "minimum_coverage": 90
+    "minimum_coverage": 95
 }

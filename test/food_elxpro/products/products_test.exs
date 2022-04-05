@@ -10,10 +10,10 @@ defmodule FoodElxpro.ProductsTest do
   test "create_product" do
     payload = %{name: "pizza", size: "small", price: 100, description: "calabresa"}
 
-    assert {:ok, %Product{} = product} = Products.create_product(payload)
+    {:ok, %Product{} = product} = Products.create_product(payload)
 
     assert product.description == payload.description
-    assert product.name == payload.description
+    assert product.name == payload.name
     assert product.price == payload.price
   end
 end
