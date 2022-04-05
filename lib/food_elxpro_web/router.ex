@@ -1,6 +1,7 @@
 defmodule FoodElxproWeb.Router do
   use FoodElxproWeb, :router
 
+  # coveralls-ignore-start
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -13,7 +14,7 @@ defmodule FoodElxproWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
   end
-
+  # coveralls-ignore-stop
   scope "/", FoodElxproWeb do
     pipe_through :browser
 
@@ -54,6 +55,5 @@ defmodule FoodElxproWeb.Router do
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
-
   # coveralls-ignore-stop
 end
