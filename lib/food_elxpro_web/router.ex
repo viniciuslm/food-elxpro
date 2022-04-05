@@ -14,6 +14,7 @@ defmodule FoodElxproWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
   end
+
   # coveralls-ignore-stop
   scope "/", FoodElxproWeb do
     pipe_through :browser
@@ -55,5 +56,6 @@ defmodule FoodElxproWeb.Router do
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
+
   # coveralls-ignore-stop
 end
