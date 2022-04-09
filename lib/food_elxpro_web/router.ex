@@ -1,7 +1,6 @@
 defmodule FoodElxproWeb.Router do
   use FoodElxproWeb, :router
 
-  # coveralls-ignore-start
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -11,6 +10,7 @@ defmodule FoodElxproWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  # coveralls-ignore-start
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -20,6 +20,10 @@ defmodule FoodElxproWeb.Router do
     pipe_through :browser
 
     live "/", MainLive, :index
+
+    scope "/admin", Admin, as: :admin do
+      live "/products", ProductLive, :index
+    end
   end
 
   # Other scopes may use custom stacks.
