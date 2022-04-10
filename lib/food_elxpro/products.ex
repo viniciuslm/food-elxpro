@@ -9,4 +9,6 @@ defmodule FoodElxpro.Products do
     |> Product.changeset()
     |> Repo.insert()
   end
+
+  def change_product, do: Product.changeset()
 end
