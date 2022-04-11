@@ -2,7 +2,6 @@ defmodule FoodElxproWeb.Admin.ProductLiveTest do
   use FoodElxproWeb.ConnCase
   import Phoenix.LiveViewTest
   import FoodElxpro.Factory
-  alias FoodElxproWeb.Router.Helpers, as: Routes
 
   test "load page", %{conn: conn} do
     product = insert(:product)
