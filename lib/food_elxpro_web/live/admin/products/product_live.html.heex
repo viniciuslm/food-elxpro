@@ -14,7 +14,7 @@
                     <%= for product <- @products do %>
                     <tr class="text-gray-700" data-role="product-item" data-id={product.id}>
                         <td class="px-4 py-3 border" data-role="product-name" data-id={product.id}><%= product.name %></td>
-                        <td class="px-4 py-3 border" data-role="product-price" data-id={product.id}>$<%= product.price %></td>
+                        <td class="px-4 py-3 border" data-role="product-price" data-id={product.id}><%= product.price %></td>
                         <td class="px-4 py-3 border" data-role="product-size" data-id={product.id}><%= product.size %></td>
                         <td class="px-4 py-3 border" data-role="product-action" data-id={product.id}>Show | Edit | Delete</td>
                     </tr>

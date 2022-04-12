@@ -65,7 +65,8 @@ defmodule FoodElxpro.MixProject do
       {:dialyxir, "~> 0.5.0", only: [:dev, :test], runtime: false},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_machina, "~> 2.7.0"},
-      {:faker, "~> 0.17", only: :test}
+      {:faker, "~> 0.17", only: [:dev, :test]},
+      {:money, "~> 1.9"}
     ]
   end
 

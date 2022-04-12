@@ -11,6 +11,8 @@ config :food_elxpro,
   ecto_repos: [FoodElxpro.Repo],
   generators: [binary_id: true]
 
+config :money, default_currency: :BRL
+
 # Configures the endpoint
 config :food_elxpro, FoodElxproWeb.Endpoint,
   url: [host: "localhost"],
