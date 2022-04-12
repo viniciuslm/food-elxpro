@@ -23,11 +23,15 @@ defmodule FoodElxproWeb.Admin.Products.Form do
   end
 
   def handle_event("save", %{"product" => product_params}, socket) do
-    changeset =
-      socket.assigns.product
-      |> Products.change_product(product_params)
-      |> Map.put(:action, :validate)
+    case Products.create_product(product_params) do
+      {:ok, _product} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Product has created!")
+         |> push_redirect(to: "/admin/products")}
 
-    {:noreply, assign(socket, :changeset, changeset)}
+      {:error, changeset} ->
+        {:noreply, assign(socket, :changeset, changeset)}
+    end
   end
 end

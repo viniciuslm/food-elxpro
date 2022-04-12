@@ -14,7 +14,7 @@ defmodule FoodElxpro.ProductsTest do
 
     assert product.description == payload.description
     assert product.name == payload.name
-    assert product.price == payload.price
+    assert product.price == %Money{amount: 100, currency: :BRL}
   end
 
   test "given a product whith the same should throw an error message" do
