@@ -21,7 +21,11 @@
             <%= error_tag f, :size %>
         </div>
         <div class="flex items-center">
+            <%= if @action == :new do %>
             <%= submit "Criar produto", phx_disable_with: "Criando...", class: "btn-primary rounded-full text-sm text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+            <%= else %>
+            <%= submit "Editar produto", phx_disable_with: "Editando...", class: "btn-primary rounded-full text-sm text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+            <% end %>
         </div>
     </.form>
 </div>
