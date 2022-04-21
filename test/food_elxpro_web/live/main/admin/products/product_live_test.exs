@@ -44,4 +44,24 @@ defmodule FoodElxproWeb.Admin.ProductLiveTest do
 
     refute view |> has_element?("[data-role=delete-product][data-id=#{product.id}]", "Delete")
   end
+
+  test "give a product that has exist when click to show and load show page",
+       %{conn: conn} do
+    product = insert(:product)
+
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+    assert view |> has_element?("[data-role=show-product][data-id=#{product.id}]", "Show")
+
+    {:ok, view, _html} =
+      view
+      |> element("[data-role=show-product][data-id=#{product.id}]", "Show")
+      |> render_click()
+      |> follow_redirect(conn, Routes.admin_product_show_path(conn, :show, product))
+
+    assert view |> has_element?("[data-role=name]", product.name)
+    assert view |> has_element?("[data-role=description]", product.description)
+    assert view |> has_element?("[data-role=price]", Money.to_string(product.price))
+    assert view |> has_element?("[data-role=size]", product.size)
+  end
 end
