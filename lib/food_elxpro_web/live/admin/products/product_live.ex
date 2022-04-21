@@ -14,6 +14,10 @@ defmodule FoodElxproWeb.Admin.ProductLive do
     {:noreply, apply_action(socket, live_action, params)}
   end
 
+  def handle_event("delete", %{"id" => id}, socket) do
+    delete(socket, id)
+  end
+
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "Create new Product")
@@ -30,5 +34,14 @@ defmodule FoodElxproWeb.Admin.ProductLive do
     socket
     |> assign(:page_title, "Edit Product")
     |> assign(:product, product)
+  end
+
+  defp delete(socket, id) do
+    {:ok, _} = Products.delete_product(id)
+
+    {:noreply,
+     socket
+     |> put_flash(:info, "Product deleted!")
+     |> push_redirect(to: Routes.admin_product_path(socket, :index))}
   end
 end
