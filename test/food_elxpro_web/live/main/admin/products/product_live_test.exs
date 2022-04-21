@@ -26,11 +26,22 @@ defmodule FoodElxproWeb.Admin.ProductLiveTest do
            )
 
     assert has_element?(view, "[data-role=product-size][data-id=#{product.id}]", product.size)
+  end
 
-    assert has_element?(
-             view,
-             "[data-role=product-action][data-id=#{product.id}]",
-             "Show | Edit | Delete"
-           )
+  test "give a product that has exist when click to delete then return a message that has deleted the product",
+       %{conn: conn} do
+    product = insert(:product)
+
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+    assert view |> has_element?("[data-role=delete-product][data-id=#{product.id}]", "Delete")
+
+    {:ok, view, _html} =
+      view
+      |> element("[data-role=delete-product][data-id=#{product.id}]", "Delete")
+      |> render_click()
+      |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
+
+    refute view |> has_element?("[data-role=delete-product][data-id=#{product.id}]", "Delete")
   end
 end

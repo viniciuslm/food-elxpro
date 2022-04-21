@@ -10,6 +10,14 @@ defmodule FoodElxpro.ProductsTest do
   test "get!/1" do
     payload = %{name: "pizza", size: "small", price: 100, description: "calabresa"}
     {:ok, %Product{} = product} = Products.create_product(payload)
+
+    assert {:ok, %Product{}} = Products.delete_product(product.id)
+    assert_raise Ecto.NoResultsError, fn -> Products.get!(product.id) end
+  end
+
+  test "delete_product/1" do
+    payload = %{name: "pizza", size: "small", price: 100, description: "calabresa"}
+    {:ok, %Product{} = product} = Products.create_product(payload)
     product_get = Products.get!(product.id)
 
     assert product.description == product_get.description

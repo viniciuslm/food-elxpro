@@ -18,5 +18,11 @@ defmodule FoodElxpro.Products do
     |> Repo.update()
   end
 
+  def delete_product(id) do
+    id
+    |> get!()
+    |> Repo.delete()
+  end
+
   def change_product(product, attrs \\ %{}), do: Product.changeset(product, attrs)
 end
