@@ -1,13 +1,12 @@
 {
     "skip_files": [
         "lib/food_elxpro/application.ex",
-        "lib/food_elxpro/repo.ex",
         "lib/food_elxpro_web.ex",
-        "lib/food_elxpro_web/views/error_helpers.ex",
         "lib/food_elxpro_web/telemetry.ex",
-        "lib/food_elxpro_web/live/page_live.ex",
-        "lib/food_elxpro_web/channels/user_socket",
-        "test/support/*"
+        "lib/food_elxpro_web/views/error_helpers.ex",
+        "test/support/channel_case.ex",
+        "test/support/data_case.ex",
+        "test/support/fixtures/product_fixtures.ex"
     ],
     "treat_no_relevant_line_as_covered": true,
     "output_dir": "cover/",

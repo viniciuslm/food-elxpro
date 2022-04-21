@@ -16,7 +16,7 @@ defmodule FoodElxproWeb.LiveHelpers do
             phx-key="escape"
           >
         <%= if @return_to do %>
-          <%= live_patch "x", to: @return_to, id: "close", class: "phx-modal-close", phx_click: hide_modal() %>
+          <%= live_patch "x", to: @return_to, id: "close", "data-role": "close-modal", class: "phx-modal-close", phx_click: hide_modal() %>
         <% else %>
         <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}><small>x</small></a>
         <% end %>
