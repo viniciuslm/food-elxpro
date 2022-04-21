@@ -5,7 +5,8 @@
         "lib/food_elxpro_web/telemetry.ex",
         "lib/food_elxpro_web/views/error_helpers.ex",
         "test/support/channel_case.ex",
-        "test/support/data_case.ex"
+        "test/support/data_case.ex",
+        "test/support/fixtures/product_fixtures.ex"
     ],
     "treat_no_relevant_line_as_covered": true,
     "output_dir": "cover/",

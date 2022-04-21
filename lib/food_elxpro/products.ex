@@ -18,7 +18,5 @@ defmodule FoodElxpro.Products do
     |> Repo.update()
   end
 
-  def change_product, do: Product.changeset()
-
   def change_product(product, attrs \\ %{}), do: Product.changeset(product, attrs)
 end
