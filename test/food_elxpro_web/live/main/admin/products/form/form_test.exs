@@ -4,7 +4,7 @@ defmodule FoodElxproWeb.Admin.Products.FormTest do
   import FoodElxpro.Factory
   alias FoodElxpro.Products
 
-  setup :register_and_log_in_user
+  setup :register_and_log_in_user_admin
 
   test "load modal insert product", %{conn: conn} do
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
