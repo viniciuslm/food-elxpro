@@ -1,11 +1,13 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     FoodElxpro.Repo.insert!(%FoodElxpro.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+alias FoodElxpro.Accounts
+
+Accounts.register_user(%{
+  email: "viniciuslm@gmail.com",
+  password: "Vlm@123",
+  role: "ADMIN"
+})
+
+Accounts.register_user(%{
+  email: "vlm@gmail.com",
+  password: "Vlm@123",
+  role: "USER"
+})

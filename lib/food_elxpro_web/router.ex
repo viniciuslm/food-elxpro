@@ -80,16 +80,18 @@ defmodule FoodElxproWeb.Router do
   scope "/", FoodElxproWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    scope "/admin", Admin, as: :admin do
-      live "/products", ProductLive, :index
-      live "/products/new", ProductLive, :new
-      live "/products/:id/edit", ProductLive, :edit
-      live "/products/:id", ProductLive.Show, :show
-    end
-
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    live_session :is_admin, on_mount: {LiveSessions.Permissions, :admin} do
+      scope "/admin", Admin, as: :admin do
+        live "/products", ProductLive, :index
+        live "/products/new", ProductLive, :new
+        live "/products/:id/edit", ProductLive, :edit
+        live "/products/:id", ProductLive.Show, :show
+      end
+    end
   end
 
   scope "/", FoodElxproWeb do
