@@ -1,6 +1,8 @@
 defmodule FoodElxproWeb.Router do
   use FoodElxproWeb, :router
 
+  import FoodElxproWeb.UserAuth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,7 @@ defmodule FoodElxproWeb.Router do
     plug :put_root_layout, {FoodElxproWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_current_user
   end
 
   # coveralls-ignore-start
@@ -20,13 +23,6 @@ defmodule FoodElxproWeb.Router do
     pipe_through :browser
 
     live "/", MainLive, :index
-
-    scope "/admin", Admin, as: :admin do
-      live "/products", ProductLive, :index
-      live "/products/new", ProductLive, :new
-      live "/products/:id/edit", ProductLive, :edit
-      live "/products/:id", ProductLive.Show, :show
-    end
   end
 
   # Other scopes may use custom stacks.
@@ -65,4 +61,44 @@ defmodule FoodElxproWeb.Router do
   end
 
   # coveralls-ignore-stop
+
+  ## Authentication routes
+
+  scope "/", FoodElxproWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+    get "/users/register", UserRegistrationController, :new
+    post "/users/register", UserRegistrationController, :create
+    get "/users/log_in", UserSessionController, :new
+    post "/users/log_in", UserSessionController, :create
+    get "/users/reset_password", UserResetPasswordController, :new
+    post "/users/reset_password", UserResetPasswordController, :create
+    get "/users/reset_password/:token", UserResetPasswordController, :edit
+    put "/users/reset_password/:token", UserResetPasswordController, :update
+  end
+
+  scope "/", FoodElxproWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    scope "/admin", Admin, as: :admin do
+      live "/products", ProductLive, :index
+      live "/products/new", ProductLive, :new
+      live "/products/:id/edit", ProductLive, :edit
+      live "/products/:id", ProductLive.Show, :show
+    end
+
+    get "/users/settings", UserSettingsController, :edit
+    put "/users/settings", UserSettingsController, :update
+    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+  end
+
+  scope "/", FoodElxproWeb do
+    pipe_through [:browser]
+
+    delete "/users/log_out", UserSessionController, :delete
+    get "/users/confirm", UserConfirmationController, :new
+    post "/users/confirm", UserConfirmationController, :create
+    get "/users/confirm/:token", UserConfirmationController, :edit
+    post "/users/confirm/:token", UserConfirmationController, :update
+  end
 end

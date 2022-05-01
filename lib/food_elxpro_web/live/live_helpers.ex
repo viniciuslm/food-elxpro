@@ -12,7 +12,7 @@ defmodule FoodElxproWeb.LiveHelpers do
             id="modal-content"
             class="phx-modal-content fade-in-scale"
             phx-click-away={JS.dispatch("click", to: "#close")}
-            phx-window-kwydown={JS.dispatch("click", to: "#close")}
+            phx-window-keydown={JS.dispatch("click", to: "#close")}
             phx-key="escape"
           >
         <%= if @return_to do %>
