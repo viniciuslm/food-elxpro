@@ -3,6 +3,8 @@ defmodule FoodElxproWeb.Admin.ProductLive.ShowTest do
   import Phoenix.LiveViewTest
   import FoodElxpro.Factory
 
+  setup :register_and_log_in_user
+
   test "load page",
        %{conn: conn} do
     product = insert(:product)

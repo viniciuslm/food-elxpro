@@ -23,13 +23,6 @@ defmodule FoodElxproWeb.Router do
     pipe_through :browser
 
     live "/", MainLive, :index
-
-    scope "/admin", Admin, as: :admin do
-      live "/products", ProductLive, :index
-      live "/products/new", ProductLive, :new
-      live "/products/:id/edit", ProductLive, :edit
-      live "/products/:id", ProductLive.Show, :show
-    end
   end
 
   # Other scopes may use custom stacks.
@@ -86,6 +79,13 @@ defmodule FoodElxproWeb.Router do
 
   scope "/", FoodElxproWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    scope "/admin", Admin, as: :admin do
+      live "/products", ProductLive, :index
+      live "/products/new", ProductLive, :new
+      live "/products/:id/edit", ProductLive, :edit
+      live "/products/:id", ProductLive.Show, :show
+    end
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
