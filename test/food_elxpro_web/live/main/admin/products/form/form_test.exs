@@ -27,6 +27,31 @@ defmodule FoodElxproWeb.Admin.Products.FormTest do
     assert view |> has_element?("#close")
   end
 
+  test "should cancel upload", %{conn: conn} do
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :new))
+
+    upload =
+      file_input(view, "#new", :photo, [
+        %{
+          last_modified: 1_594_171_879_000,
+          name: "myfile.jpeg",
+          content: "    ",
+          type: "image/jpeg"
+        }
+      ])
+
+    assert render_upload(upload, "myfile.jpeg", 75) =~ "75%"
+
+    assert view
+           |> has_element?("[data-role=image-loaded][data-id=#{hd(upload.entries)["ref"]}", "75")
+
+    ref = "[data-role=cancel][data-id=#{hd(upload.entries)["ref"]}"
+
+    assert view |> has_element?(ref)
+    assert view |> element(ref) |> render_click()
+    refute view |> has_element?(ref)
+  end
+
   test "give a product when submit the form then return a message that has created the product",
        %{conn: conn} do
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
