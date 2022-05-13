@@ -15,7 +15,7 @@ defmodule FoodElxpro.Products.ProductImage do
     end
   end
 
-  def storage_dir(file_type, {file, product}) do
-    "/upload/products/#{product.id}"
+  def storage_dir(_, {_file, product}) do
+    "/priv/static/upload/products/#{product.name}"
   end
 end
