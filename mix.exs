@@ -67,7 +67,9 @@ defmodule FoodElxpro.MixProject do
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_machina, "~> 2.7.0"},
       {:faker, "~> 0.17", only: [:dev, :test]},
-      {:money, "~> 1.9"}
+      {:money, "~> 1.9"},
+      {:waffle, "~> 1.1"},
+      {:waffle_ecto, "~> 0.0"}
     ]
   end
 

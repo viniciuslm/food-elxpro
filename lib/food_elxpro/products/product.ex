@@ -1,6 +1,8 @@
 defmodule FoodElxpro.Products.Product do
   use Ecto.Schema
   import Ecto.Changeset
+  alias FoodElxpro.Products.ProductImage
+  import Waffle.Ecto.Schema
 
   @fields ~w/description/a
   @required_fields ~w/name price size/a
@@ -12,6 +14,7 @@ defmodule FoodElxpro.Products.Product do
     field :price, Money.Ecto.Amount.Type
     field :size, :string
     field :description, :string
+    field :product_url, ProductImage.Type
 
     timestamps()
   end
@@ -21,6 +24,7 @@ defmodule FoodElxpro.Products.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, @fields ++ @required_fields)
+    |> cast_attachments(attrs, [:product_url])
     |> validate_required(@required_fields)
     |> unique_constraint(:name)
   end
