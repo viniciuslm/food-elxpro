@@ -7,7 +7,7 @@ defmodule FoodElxpro.Products.ProductImage do
   @extension_whitelist ~w(.png .jpg .jpeg)
 
   def validate({file, _}) do
-    file_extension = file.file_name |> Path.extname |> String.downcase
+    file_extension = file.file_name |> Path.extname() |> String.downcase()
 
     case Enum.member?(@extension_whitelist, file_extension) do
       true -> :ok
