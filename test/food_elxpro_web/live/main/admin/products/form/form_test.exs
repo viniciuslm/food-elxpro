@@ -76,6 +76,42 @@ defmodule FoodElxproWeb.Admin.Products.FormTest do
     assert html =~ "Product has created!"
   end
 
+  test "give a product with image when submit the form then return a message that has created the product",
+       %{conn: conn} do
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+    open_modal(view)
+
+    upload =
+      file_input(view, "#new", :photo, [
+        %{
+          last_modified: 1_594_171_879_000,
+          name: "myfile.jpeg",
+          content: "    ",
+          type: "image/jpeg"
+        }
+      ])
+
+    assert render_upload(upload, "myfile.jpeg", 100) =~ "100%"
+
+    payload = %{
+      name: "teste produto",
+      description: "teste de produto",
+      price: 123,
+      size: "small"
+    }
+
+    {:ok, _, html} =
+      view
+      |> form("#new",
+        product: payload
+      )
+      |> render_submit()
+      |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
+
+    assert html =~ "Product has created!"
+  end
+
   test "give a product when submit the form then return changeset error",
        %{conn: conn} do
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))

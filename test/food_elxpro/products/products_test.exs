@@ -23,9 +23,32 @@ defmodule FoodElxpro.ProductsTest do
     assert product.description == product_get.description
     assert product.name == product_get.name
     assert product.price == product_get.price
+    assert "" == Products.get_image(product)
   end
 
   test "create_product" do
+    file_upload = %Plug.Upload{
+      content_type: "image/png",
+      filename: "photo.png",
+      path: "test/support/fixtures/photo.png"
+    }
+
+    payload = %{
+      name: "pizza",
+      size: "small",
+      price: 100,
+      description: "calabresa",
+      product_url: file_upload
+    }
+
+    {:ok, %Product{} = product} = Products.create_product(payload)
+
+    [url | _] = Products.get_image(product)
+
+    assert String.contains?(url, file_upload.filename)
+  end
+
+  test "create product with image get the image url" do
     payload = %{name: "pizza", size: "small", price: 100, description: "calabresa"}
 
     {:ok, %Product{} = product} = Products.create_product(payload)
@@ -53,5 +76,25 @@ defmodule FoodElxpro.ProductsTest do
     assert {:error, changeset} = Products.create_product(payload)
     assert "has already been taken" in errors_on(changeset).name
     assert %{name: ["has already been taken"]} = errors_on(changeset)
+  end
+
+  test "create product with image invalid type" do
+    file_upload = %Plug.Upload{
+      content_type: "text/txt",
+      filename: "photo.txt",
+      path: "test/support/fixtures/photo.txt"
+    }
+
+    payload = %{
+      name: "pizza",
+      size: "small",
+      price: 100,
+      description: "calabresa",
+      product_url: file_upload
+    }
+
+    assert {:error, changeset} = Products.create_product(payload)
+    assert ["file type is invalid"] = errors_on(changeset).product_url
+    assert %{product_url: ["file type is invalid"]} = errors_on(changeset)
   end
 end
