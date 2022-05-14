@@ -27,7 +27,14 @@ defmodule FoodElxpro.Products do
   def change_product(product, attrs \\ %{}), do: Product.changeset(product, attrs)
 
   def get_image(product) do
-    url = ProductImage.url({product.product_url, product})
+    {product.product_url, product}
+    |> ProductImage.url()
+    |> get_image_url
+  end
+
+  defp get_image_url(nil), do: ""
+
+  defp get_image_url(url) do
     [_ | url] = String.split(url, "/priv/static")
     url
   end
