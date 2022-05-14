@@ -23,7 +23,7 @@ defmodule FoodElxpro.ProductsTest do
     assert product.description == product_get.description
     assert product.name == product_get.name
     assert product.price == product_get.price
-    assert "" ==  Products.get_image(product)
+    assert "" == Products.get_image(product)
   end
 
   test "create_product" do
@@ -85,7 +85,13 @@ defmodule FoodElxpro.ProductsTest do
       path: "test/support/fixtures/photo.txt"
     }
 
-    payload = %{name: "pizza", size: "small", price: 100, description: "calabresa", product_url: file_upload}
+    payload = %{
+      name: "pizza",
+      size: "small",
+      price: 100,
+      description: "calabresa",
+      product_url: file_upload
+    }
 
     assert {:error, changeset} = Products.create_product(payload)
     assert ["file type is invalid"] = errors_on(changeset).product_url
