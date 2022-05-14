@@ -26,7 +26,7 @@ defmodule FoodElxproWeb.Admin.Products.Form do
 
   def handle_event("save", %{"product" => product_params}, socket) do
     action = socket.assigns.action
-    build_photo_to_upload(socket, product_params)
+    product_params = build_photo_to_upload(socket, product_params)
     save(socket, action, product_params)
   end
 
@@ -82,6 +82,7 @@ defmodule FoodElxproWeb.Admin.Products.Form do
   defp add_file_upload([], product_params), do: product_params
 
   defp add_file_upload([file_upload | _], product_params) do
+    IO.inspect file_upload
     Map.put(product_params, "product_url", file_upload)
   end
 
