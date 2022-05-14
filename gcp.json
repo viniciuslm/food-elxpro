@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tactile-welder-350211",
+  "private_key_id": "be86c0a309fe88abfc5ea09345b0d2d00a27ee26",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDEZ+cdLsDeUIs+\nqrZMDxbBh1oMTliD/OXhf49fRAzzwLRqWCyz6CRwHbkjxLFbjNk/nZk6lDuVmNSp\nOKSgxG5KWZNVQ4HZLuzusq0w1UWfSqcVbsbUqnBgBo0L6HbBza1YRMn4lBFx4ZD0\nQ+4TdYDUCxaMWl4o7imds9rPUNw5jns1QzJkMgFoR6X/cspu8nFqQF2IpEOAiw29\nhaQ2r6Lq1FkVbUUVf3XbUl2fbgz+ogSeKkqhtjFxeV6aVHZHufgqYXCVNv/UHIxI\nA0JKWVVYcd77rKcGVUqqnDBAC6Q+z6KB76MCKW3EnB7rRkcSzYwrKfn/BnM2biB3\nqTK1yh5RAgMBAAECggEAA0B6+PItOYEWEvCjjjvr53Ee/gO2yr55j+gPrununmwD\n1oS8UAQQraehyRukPNcVQcEdKF4L7/bgjoP7wXN/Jc1y92fj0tqOOnEpcr+4JHmV\nCp/8XyYh00allQQqIb+xrZjTELY0WY5Zz1RzgnwPkaHARozPwkxGdZMTT0n45x3w\nRERy6bmSDVxmVTuWWm6P4+5O2uqQtvxnk3QJ+qA/qJCQP2PaqH4EDDaQsU6mO+MG\nuYoY35+c0rqngHTOmQj3Dr7JXl3ctUqZSHjqYM1e2Dq3S09nGjPlS7M1mUUbmpu3\n1Lx6jrQixR4C1A+DwJQ+Pg59Nc+FRppDHytkm5ergQKBgQD0AMRR3BTHrpCzA+92\nK8uYlbROSwhxwqFC8PNdBZ/vmXnY308VQPVJ61VXHmhiHleqIOVqGvA8nviFDjRq\n5kVohlWrA7nWww1NQ2jCCDsRtsfxZ7GYKcApM40i9uF7m1gvFqEMnqieqeG1TdFv\n5CPkq5Zi1Eo7y47ly/R7Yn0x/wKBgQDOEAmJdLJ36yb6fXZNAinm/4ZBOaubJ/Gu\nWZ3deBXaawnWWz3KFhi26FZKpuzleTc03YEMN48zwUv9tB3dkA6eowKmqzxvW4SZ\n6wirmzp8pe2kxz92+ebsBuWQ3Jno4Im/1mMAMK4aIhfv/VUkXziwOKBf7sQ9LeXb\ncr9+FbkPrwKBgDyfsCdSkgsm0SbZNHbc3MH1eA330IpLPDvgl+alzh3+uOpsWT7D\nm+4YvWRe1rqCJW/MqpNZTBUTvlV4uQdSXS5iKgjKbTLx1W078Vw8JUj6a+ULyXEv\n9mGGQGvOgSlv6FISwkLbbLO3K7AbPI0bVtuq0juN2T/QDJoFuaGqT8bLAoGAU6lP\nNe+bRfTDLpAhp8JpINA9wd2YPrZI+XCJF5HZzYQHym/g9ltiTWCnKEf9hm1gbKZB\n7qPgEDM6lxa5yWrjhKTKPsDnGI8flx5FtuafKFx1z6DVs4hiqRFjwxzNoC8Jvklc\niIc7KIEPFvDT0KCYc3OKKWjXY79uw1ojRR2stSECgYBJEhMj3GiFaiZkzKaA4T8M\n53ZKef8Lklslcg6lIdAun/XpDoJ0/WfAtfLbLtm3VxbGxfHrlgivsfYW/0WUDtI/\n66KQTbSulxljIJT5qaOJkW5Rm4azs6blM+9P4WqKmJGOO3EY/w8zAMnUzv/QaelJ\nIBSgdngNXd0Ve+TC6lI3bw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bucket-elxpro-permissao@tactile-welder-350211.iam.gserviceaccount.com",
+  "client_id": "111002235522578010839",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bucket-elxpro-permissao%40tactile-welder-350211.iam.gserviceaccount.com"
+}
