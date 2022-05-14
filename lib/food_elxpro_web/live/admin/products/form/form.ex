@@ -82,7 +82,6 @@ defmodule FoodElxproWeb.Admin.Products.Form do
   defp add_file_upload([], product_params), do: product_params
 
   defp add_file_upload([file_upload | _], product_params) do
-    IO.inspect file_upload
     Map.put(product_params, "product_url", file_upload)
   end
 

@@ -42,7 +42,6 @@ defmodule FoodElxpro.ProductsTest do
     }
 
     {:ok, %Product{} = product} = Products.create_product(payload)
-
     [url | _] = Products.get_image(product)
 
     assert String.contains?(url, file_upload.filename)
@@ -80,9 +79,9 @@ defmodule FoodElxpro.ProductsTest do
 
   test "create product with image invalid type" do
     file_upload = %Plug.Upload{
-      content_type: "text/txt",
-      filename: "photo.txt",
-      path: "test/support/fixtures/photo.txt"
+      content_type: "image/svg",
+      filename: "photo.svg",
+      path: "test/support/fixtures/photo.svg"
     }
 
     payload = %{
@@ -94,7 +93,7 @@ defmodule FoodElxpro.ProductsTest do
     }
 
     assert {:error, changeset} = Products.create_product(payload)
-    assert ["file type is invalid"] = errors_on(changeset).product_url
+    assert "file type is invalid" in errors_on(changeset).product_url
     assert %{product_url: ["file type is invalid"]} = errors_on(changeset)
   end
 end
