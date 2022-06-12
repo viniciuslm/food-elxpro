@@ -2,6 +2,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   use FoodElxproWeb, :live_view
   alias FoodElxpro.Products
   alias FoodElxpro.Products.Product
+  alias FoodElxproWeb.Admin.Product.ProductRow
   alias FoodElxproWeb.Admin.Products.Form
 
   def mount(_p, _s, socket) do
