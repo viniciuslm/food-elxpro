@@ -2,20 +2,38 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   use FoodElxproWeb, :live_view
   alias FoodElxpro.Products
   alias FoodElxpro.Products.Product
+  alias FoodElxproWeb.Admin.Product.FilterByName
+  alias FoodElxproWeb.Admin.Product.ProductRow
   alias FoodElxproWeb.Admin.Products.Form
 
+  @impl true
   def mount(_p, _s, socket) do
-    products = Products.list_products()
-    {:ok, socket |> assign(products: products)}
+    {:ok, socket}
   end
 
+  @impl true
   def handle_params(params, _url, socket) do
     live_action = socket.assigns.live_action
-    {:noreply, apply_action(socket, live_action, params)}
+    products = Products.list_products()
+
+    socket =
+      socket
+      |> apply_action(live_action, params)
+      |> assign(products: products)
+      |> assign(name: "")
+
+    {:noreply, socket}
   end
 
+  @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     delete(socket, id)
+  end
+
+  @impl true
+  def handle_event("filter-by-name", %{"name" => name}, socket) do
+    socket = apply_filters(socket, name)
+    {:noreply, socket}
   end
 
   defp apply_action(socket, :new, _params) do
@@ -43,5 +61,10 @@ defmodule FoodElxproWeb.Admin.ProductLive do
      socket
      |> put_flash(:info, "Product deleted!")
      |> push_redirect(to: Routes.admin_product_path(socket, :index))}
+  end
+
+  defp apply_filters(socket, name) do
+    products = Products.list_products(name)
+    assign(socket, products: products, name: name)
   end
 end
