@@ -6,7 +6,7 @@ defmodule FoodElxproWeb.Admin.ProductLive.FilterByNameTest do
   describe "test filter" do
     setup :register_and_log_in_user_admin
 
-    test "filter by name", %{conn: conn} do
+    test "filter by name when a sucess", %{conn: conn} do
       product_1 = insert(:product)
       product_2 = insert(:product)
 
@@ -20,6 +20,25 @@ defmodule FoodElxproWeb.Admin.ProductLive.FilterByNameTest do
       |> render_submit
 
       assert view |> has_element?("[data-role=product-item][data-id=#{product_1.id}]")
+      refute view |> has_element?("[data-role=product-item][data-id=#{product_2.id}]")
+    end
+
+    test "filter by name when a error", %{conn: conn} do
+      product_1 = insert(:product)
+      product_2 = insert(:product)
+      name = "xpto22"
+
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+      assert view |> has_element?("[data-role=product-item][data-id=#{product_1.id}]")
+      assert view |> has_element?("[data-role=product-item][data-id=#{product_2.id}]")
+
+      view
+      |> form("#filter-by-name", %{name: name})
+      |> render_submit
+
+      # assert get_flash(view, :info) =~ "There is no procuct with \"#{name}\""
+      refute view |> has_element?("[data-role=product-item][data-id=#{product_1.id}]")
       refute view |> has_element?("[data-role=product-item][data-id=#{product_2.id}]")
     end
   end
