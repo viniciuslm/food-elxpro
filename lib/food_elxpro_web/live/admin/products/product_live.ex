@@ -46,7 +46,9 @@ defmodule FoodElxproWeb.Admin.ProductLive do
 
   @impl true
   def handle_info({:list_products, name}, socket) do
-    {:noreply, perfom_filter(socket, name)}
+    sort = socket.assigns.options
+    params = [name: name, sort: sort]
+    {:noreply, perfom_filter(socket, params)}
   end
 
   defp apply_action(socket, :new, _params) do
@@ -84,20 +86,21 @@ defmodule FoodElxproWeb.Admin.ProductLive do
     assign(socket, assigns)
   end
 
-  defp perfom_filter(socket, name) do
-    Products.list_products(name: name)
-    |> return_filter_response(socket, name)
+  defp perfom_filter(socket, params) do
+    Products.list_products(params)
+    |> return_filter_response(socket, params)
   end
 
-  defp return_filter_response([], socket, name) do
-    assigns = [products: [], loading: false]
+  defp return_filter_response([], socket, params) do
+    assigns = [products: [], loading: false, name: params[:name], options: params[:sort]]
+    name = params[:name]
 
     socket
     |> put_flash(:info, "There is no procuct with \"#{name}\"")
     |> assign(assigns)
   end
 
-  defp return_filter_response(products, socket, _name) do
+  defp return_filter_response(products, socket, _params) do
     assigns = [products: products, loading: false]
 
     socket

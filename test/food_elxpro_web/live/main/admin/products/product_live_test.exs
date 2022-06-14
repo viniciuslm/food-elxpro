@@ -11,9 +11,9 @@ defmodule FoodElxproWeb.Admin.ProductLiveTest do
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
     assert has_element?(view, "[data-role=product-section]")
     assert has_element?(view, "[data-role=product-table]")
-    assert has_element?(view, "[data-id=head-name]", "Name")
-    assert has_element?(view, "[data-id=head-price]", "Price")
-    assert has_element?(view, "[data-id=head-size]", "Size")
+    assert has_element?(view, "[data-id=head-name]")
+    assert has_element?(view, "[data-id=head-price]")
+    assert has_element?(view, "[data-id=head-size]")
     assert has_element?(view, "[data-id=head-actions]", "Actions")
     assert has_element?(view, "[data-role=product-list]")
 
@@ -66,4 +66,30 @@ defmodule FoodElxproWeb.Admin.ProductLiveTest do
     assert view |> has_element?("[data-role=price]", Money.to_string(product.price))
     assert view |> has_element?("[data-role=size]", product.size)
   end
+
+  test "click sorting by patches",
+       %{conn: conn} do
+    insert(:product)
+
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+    view
+    |> element("[data-role=sort][data-id=name]")
+    |> render_click()
+
+    assert_patched(view, "/admin/products?sort_by=name&sort_order=asc&name=")
+
+    view
+    |> element("[data-role=sort][data-id=name]")
+    |> render_click()
+
+    assert_patched(view, "/admin/products?sort_by=name&sort_order=desc&name=")
+  end
+
+  # test "click sorting by url",
+  #      %{conn: conn} do
+  #   for _ <- 1..10, do: insert(:product)
+
+  #   {:ok, view, _html} = live(conn, "/admin/products?sort_by=name&sort_order=asc&name=")
+  # end
 end
