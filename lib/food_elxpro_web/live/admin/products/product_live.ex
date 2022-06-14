@@ -14,10 +14,16 @@ defmodule FoodElxproWeb.Admin.ProductLive do
 
   @impl true
   def handle_params(params, _url, socket) do
-    live_action = socket.assigns.live_action
-    products = Products.list_products()
+    name = params["name"] || ""
+    sort_by = (params["sort_by"] || "updated_at") |> String.to_atom()
+    sort_order = (params["sort_order"] || "desc") |> String.to_atom()
 
-    assigns = [products: products, name: "", loading: false]
+    sort = %{sort_by: sort_by, sort_order: sort_order}
+
+    live_action = socket.assigns.live_action
+    products = Products.list_products(name: name, sort: sort)
+
+    assigns = [products: products, name: name, loading: false, options: sort]
 
     socket =
       socket
@@ -79,8 +85,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   end
 
   defp perfom_filter(socket, name) do
-    name
-    |> Products.list_products()
+    Products.list_products(name: name)
     |> return_filter_response(socket, name)
   end
 
