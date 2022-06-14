@@ -4,6 +4,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   alias FoodElxpro.Products.Product
   alias FoodElxproWeb.Admin.Product.FilterByName
   alias FoodElxproWeb.Admin.Product.ProductRow
+  alias FoodElxproWeb.Admin.Product.Sort
   alias FoodElxproWeb.Admin.Products.Form
 
   @impl true
