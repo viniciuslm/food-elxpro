@@ -20,8 +20,6 @@ defmodule FoodElxproWeb.Admin.Product.Sort do
   end
 
   defp assign_sort_order(socket, %{options: %{sort_order: sort_order}}) do
-    IO.inspect(sort_order)
-
     if sort_order == :desc do
       socket
       |> assign(icon: "sort-desc.html")
