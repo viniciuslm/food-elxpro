@@ -41,5 +41,21 @@ defmodule FoodElxproWeb.Admin.ProductLive.FilterByNameTest do
       refute view |> has_element?("[data-role=product-item][data-id=#{product_1.id}]")
       refute view |> has_element?("[data-role=product-item][data-id=#{product_2.id}]")
     end
+
+    test "suggest an names when type name in filter", %{conn: conn} do
+      product_1 = insert(:product)
+      product_2 = insert(:product)
+
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+      assert view |> has_element?("[data-role=product-item][data-id=#{product_1.id}]")
+      assert view |> has_element?("[data-role=product-item][data-id=#{product_2.id}]")
+
+      view
+      |> form("#filter-by-name")
+      |> render_change(%{name: product_1.name})
+
+      # assert view |> has_element?("[data-role=suggest-names][data-id=#{product_1.name}]")
+    end
   end
 end

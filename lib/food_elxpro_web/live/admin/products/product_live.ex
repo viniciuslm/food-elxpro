@@ -23,7 +23,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
     live_action = socket.assigns.live_action
     products = Products.list_products(name: name, sort: sort)
 
-    assigns = [products: products, name: name, loading: false, options: sort]
+    assigns = [products: products, name: name, loading: false, options: sort, names: []]
 
     socket =
       socket
@@ -42,6 +42,12 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   def handle_event("filter-by-name", %{"name" => name}, socket) do
     socket = apply_filters(socket, name)
     {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("suggest", %{"name" => name}, socket) do
+    names = Products.list_suggest_names(name)
+    {:noreply, assign(socket, names: names)}
   end
 
   @impl true
