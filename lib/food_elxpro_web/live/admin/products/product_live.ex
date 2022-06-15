@@ -3,6 +3,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   alias FoodElxpro.Products
   alias FoodElxpro.Products.Product
   alias FoodElxproWeb.Admin.Product.FilterByName
+  alias FoodElxproWeb.Admin.Product.Paginate
   alias FoodElxproWeb.Admin.Product.ProductRow
   alias FoodElxproWeb.Admin.Product.Sort
   alias FoodElxproWeb.Admin.Products.Form
@@ -15,20 +16,27 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   @impl true
   def handle_params(params, _url, socket) do
     name = params["name"] || ""
+
+    page = String.to_integer(params["page"] || "1")
+    per_page = String.to_integer(params["per_page"] || "4")
+    paginate = %{page: page, per_page: per_page}
+
     sort_by = (params["sort_by"] || "updated_at") |> String.to_atom()
     sort_order = (params["sort_order"] || "desc") |> String.to_atom()
-
     sort = %{sort_by: sort_by, sort_order: sort_order}
 
     live_action = socket.assigns.live_action
-    products = Products.list_products(name: name, sort: sort)
+    products = Products.list_products(paginate: paginate, name: name, sort: sort)
 
     assigns = [products: products, name: name, loading: false, options: sort, names: []]
+
+    options = Map.merge(paginate, sort)
 
     socket =
       socket
       |> apply_action(live_action, params)
       |> assign(assigns)
+      |> assign(options: options)
 
     {:noreply, socket}
   end
@@ -52,8 +60,8 @@ defmodule FoodElxproWeb.Admin.ProductLive do
 
   @impl true
   def handle_info({:list_products, name}, socket) do
-    sort = socket.assigns.options
-    params = [name: name, sort: sort]
+    options = socket.assigns.options
+    params = [name: name, options: options]
     {:noreply, perfom_filter(socket, params)}
   end
 
@@ -98,7 +106,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   end
 
   defp return_filter_response([], socket, params) do
-    assigns = [products: [], loading: false, name: params[:name], options: params[:sort]]
+    assigns = [products: [], loading: false, name: params[:name], options: params[:options]]
     name = params[:name]
 
     socket
