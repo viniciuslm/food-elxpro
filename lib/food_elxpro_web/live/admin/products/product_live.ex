@@ -19,7 +19,8 @@ defmodule FoodElxproWeb.Admin.ProductLive do
 
     page = String.to_integer(params["page"] || "1")
     per_page = String.to_integer(params["per_page"] || "4")
-    paginate = %{page: page, per_page: per_page}
+    total = Products.count_products(name: name)
+    paginate = %{page: page, per_page: per_page, total: total}
 
     sort_by = (params["sort_by"] || "updated_at") |> String.to_atom()
     sort_order = (params["sort_order"] || "desc") |> String.to_atom()
