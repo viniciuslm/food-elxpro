@@ -40,5 +40,31 @@ defmodule FoodElxpro.Core.HandleCartsTest do
       assert [%{item: product, qty: 2}] == cart.items
       assert Money.multiply(product.price, 2) == cart.total_price
     end
+
+    test "should remove an item" do
+      product = insert(:product)
+      product_2 = insert(:product)
+
+      cart =
+        @start_cart
+        |> add_new_product(product)
+        |> add_new_product(product)
+        |> add_new_product(product_2)
+
+      total_price =
+        product.price
+        |> Money.multiply(2)
+        |> Money.add(product_2.price)
+
+      assert 3 == cart.total_qty
+      assert [%{item: product, qty: 2}, %{item: product_2, qty: 1}] == cart.items
+      assert total_price == cart.total_price
+
+      cart = cart |> remove(product.id)
+
+      assert 1 == cart.total_qty
+      assert [%{item: product_2, qty: 1}] == cart.items
+      assert product_2.price == cart.total_price
+    end
   end
 end
