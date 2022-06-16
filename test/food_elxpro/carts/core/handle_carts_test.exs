@@ -107,5 +107,20 @@ defmodule FoodElxpro.Core.HandleCartsTest do
       assert [%{item: product_2, qty: 1}, %{item: product, qty: 1}] == cart.items
       assert total_price == cart.total_price
     end
+
+    test "should decrement all elements into the cart" do
+      product = insert(:product)
+
+      cart =
+        @start_cart
+        |> add(product)
+        |> add(product)
+        |> dec(product.id)
+        |> dec(product.id)
+
+      assert 0 == cart.total_qty
+      assert [] == cart.items
+      assert Money.new(0) == cart.total_price
+    end
   end
 end

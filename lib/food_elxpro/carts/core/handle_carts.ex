@@ -54,8 +54,13 @@ defmodule FoodElxpro.Carts.Core.HandleCarts do
         if product_info.item.id == item_id do
           {list, _product} = acc
           updated_item = %{product_info | qty: product_info.qty - 1}
-          item_updated = [updated_item]
-          {list ++ item_updated, updated_item}
+
+          if updated_item.qty == 0 do
+            {list, updated_item}
+          else
+            item_updated = [updated_item]
+            {list ++ item_updated, updated_item}
+          end
         else
           {list, item_updated} = acc
           {[product_info] ++ list, item_updated}
