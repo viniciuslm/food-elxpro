@@ -1,7 +1,7 @@
 defmodule FoodElxproWeb.Admin.Product.SelectPerPage do
   use FoodElxproWeb, :live_component
 
-  def handle_event("update-select-perpage", %{"select_per_page" => per_page_value}, socket) do
+  def handle_event("update-select-perpage", %{"per-page-select" => per_page_value}, socket) do
     to =
       Routes.admin_product_path(socket, :index,
         page: socket.assigns.options.page,
