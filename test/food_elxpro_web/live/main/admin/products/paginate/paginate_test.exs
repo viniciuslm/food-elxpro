@@ -17,7 +17,7 @@ defmodule FoodElxproWeb.Admin.ProductLive.PaginateTest do
 
     assert_patched(
       view,
-      "/admin/products?page=2&per_page=4&sort_by=updated_at&sort_order=desc&name="
+      "/admin/products?page=2&per_page=5&sort_by=updated_at&sort_order=desc&name="
     )
 
     view
@@ -26,7 +26,7 @@ defmodule FoodElxproWeb.Admin.ProductLive.PaginateTest do
 
     assert_patched(
       view,
-      "/admin/products?page=1&per_page=4&sort_by=updated_at&sort_order=desc&name="
+      "/admin/products?page=1&per_page=5&sort_by=updated_at&sort_order=desc&name="
     )
 
     view
@@ -35,7 +35,7 @@ defmodule FoodElxproWeb.Admin.ProductLive.PaginateTest do
 
     assert_patched(
       view,
-      "/admin/products?page=2&per_page=4&sort_by=updated_at&sort_order=desc&name="
+      "/admin/products?page=2&per_page=5&sort_by=updated_at&sort_order=desc&name="
     )
 
     view
@@ -44,7 +44,7 @@ defmodule FoodElxproWeb.Admin.ProductLive.PaginateTest do
 
     assert_patched(
       view,
-      "/admin/products?page=1&per_page=4&sort_by=updated_at&sort_order=desc&name="
+      "/admin/products?page=1&per_page=5&sort_by=updated_at&sort_order=desc&name="
     )
   end
 
