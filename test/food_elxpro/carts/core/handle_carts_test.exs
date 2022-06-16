@@ -69,35 +69,42 @@ defmodule FoodElxpro.Core.HandleCartsTest do
 
     test "should increment the same element into the cart" do
       product = insert(:product)
+      product_2 = insert(:product)
 
       cart =
         @start_cart
         |> add(product)
         |> add(product)
+        |> add(product_2)
         |> inc(product.id)
 
       total_price =
         product.price
         |> Money.multiply(3)
+        |> Money.add(product_2.price)
 
-      assert 3 == cart.total_qty
-      assert [%{item: product, qty: 3}] == cart.items
+      assert 4 == cart.total_qty
+      assert [%{item: product_2, qty: 1}, %{item: product, qty: 3}] == cart.items
       assert total_price == cart.total_price
     end
 
     test "should decrement the same element into the cart" do
       product = insert(:product)
+      product_2 = insert(:product)
 
       cart =
         @start_cart
         |> add(product)
         |> add(product)
+        |> add(product_2)
         |> dec(product.id)
 
-      total_price = product.price
+      total_price =
+        product.price
+        |> Money.add(product_2.price)
 
-      assert 1 == cart.total_qty
-      assert [%{item: product, qty: 1}] == cart.items
+      assert 2 == cart.total_qty
+      assert [%{item: product_2, qty: 1}, %{item: product, qty: 1}] == cart.items
       assert total_price == cart.total_price
     end
   end
