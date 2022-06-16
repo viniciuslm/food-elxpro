@@ -32,6 +32,19 @@ defmodule FoodElxpro.Products do
     |> Repo.all()
   end
 
+  def count_products(params \\ []) when is_list(params) do
+    query = from(p in Product)
+
+    params
+    |> Enum.reduce(query, fn
+      {:name, name}, query ->
+        name = "%" <> name <> "%"
+        where(query, [q], ilike(q.name, ^name))
+    end)
+    |> select([q], count(q.id))
+    |> Repo.one()
+  end
+
   def get!(id), do: Repo.get!(Product, id)
 
   def create_product(attrs \\ %{}) do

@@ -19,7 +19,8 @@ defmodule FoodElxproWeb.Admin.ProductLive do
 
     page = String.to_integer(params["page"] || "1")
     per_page = String.to_integer(params["per_page"] || "4")
-    paginate = %{page: page, per_page: per_page}
+    total = Products.count_products(name: name)
+    paginate = %{page: page, per_page: per_page, total: total}
 
     sort_by = (params["sort_by"] || "updated_at") |> String.to_atom()
     sort_order = (params["sort_order"] || "desc") |> String.to_atom()
@@ -60,8 +61,13 @@ defmodule FoodElxproWeb.Admin.ProductLive do
 
   @impl true
   def handle_info({:list_products, name}, socket) do
-    options = socket.assigns.options
-    params = [name: name, options: options]
+    sort = %{
+      sort_by: socket.assigns.options.sort_by,
+      sort_order: socket.assigns.options.sort_order
+    }
+
+    paginate = %{page: socket.assigns.options.page, per_page: socket.assigns.options.per_page}
+    params = [name: name, sort: sort, paginate: paginate]
     {:noreply, perfom_filter(socket, params)}
   end
 
@@ -106,7 +112,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   end
 
   defp return_filter_response([], socket, params) do
-    assigns = [products: [], loading: false, name: params[:name], options: params[:options]]
+    assigns = [products: [], loading: false, name: params[:name]]
     name = params[:name]
 
     socket
