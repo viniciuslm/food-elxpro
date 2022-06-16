@@ -1,7 +1,7 @@
 defmodule FoodElxpro.Carts.Core.HandleCarts do
   alias FoodElxpro.Carts.Data.Cart
 
-  def create_carts(id), do: Cart.new(id)
+  def create_cart(id), do: Cart.new(id)
 
   def add(cart, item) do
     new_toral_price = Money.add(cart.total_price, item.price)

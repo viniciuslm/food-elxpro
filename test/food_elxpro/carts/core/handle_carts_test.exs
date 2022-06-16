@@ -15,7 +15,7 @@ defmodule FoodElxpro.Core.HandleCartsTest do
 
   describe "handle carts" do
     test "should create a new cart" do
-      assert @start_cart == create_carts(4444)
+      assert @start_cart == create_cart(4444)
     end
 
     test "should add a new item in the cart" do
