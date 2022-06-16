@@ -5,6 +5,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
   alias FoodElxproWeb.Admin.Product.FilterByName
   alias FoodElxproWeb.Admin.Product.Paginate
   alias FoodElxproWeb.Admin.Product.ProductRow
+  alias FoodElxproWeb.Admin.Product.SelectPerPage
   alias FoodElxproWeb.Admin.Product.Sort
   alias FoodElxproWeb.Admin.Products.Form
 
@@ -18,7 +19,7 @@ defmodule FoodElxproWeb.Admin.ProductLive do
     name = params["name"] || ""
 
     page = String.to_integer(params["page"] || "1")
-    per_page = String.to_integer(params["per_page"] || "4")
+    per_page = String.to_integer(params["per_page"] || "5")
     total = Products.count_products(name: name)
     paginate = %{page: page, per_page: per_page, total: total}
 
