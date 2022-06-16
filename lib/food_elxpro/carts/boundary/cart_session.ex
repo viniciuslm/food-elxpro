@@ -18,36 +18,36 @@ defmodule FoodElxpro.Carts.Boundary.CartSession do
     {:noreply, name}
   end
 
-  def handle_call({:add, cart_id, product}, name) do
+  def handle_call({:add, cart_id, product}, _from, name) do
     {:ok, cart} = find_cart(name, cart_id)
     cart = Cart.add(cart, product)
     :ets.insert(name, {cart_id, cart})
     {:reply, cart, name}
   end
 
-  def handle_call({:inc, cart_id, product_id}, name) do
+  def handle_call({:remove, cart_id, product_id}, _from, name) do
+    {:ok, cart} = find_cart(name, cart_id)
+    cart = Cart.remove(cart, product_id)
+    :ets.insert(name, {cart_id, cart})
+    {:reply, cart, name}
+  end
+
+  def handle_call({:inc, cart_id, product_id}, _from, name) do
     {:ok, cart} = find_cart(name, cart_id)
     cart = Cart.inc(cart, product_id)
     :ets.insert(name, {cart_id, cart})
     {:reply, cart, name}
   end
 
-  def handle_call({:dec, cart_id, product_id}, name) do
+  def handle_call({:dec, cart_id, product_id}, _from, name) do
     {:ok, cart} = find_cart(name, cart_id)
     cart = Cart.dec(cart, product_id)
     :ets.insert(name, {cart_id, cart})
     {:reply, cart, name}
   end
 
-  def handle_call({:get, cart_id}, name) do
+  def handle_call({:get, cart_id}, _from, name) do
     {:ok, cart} = find_cart(name, cart_id)
-    {:reply, cart, name}
-  end
-
-  def handle_call({:remove, cart_id, product_id}, name) do
-    {:ok, cart} = find_cart(name, cart_id)
-    cart = Cart.remove(cart, product_id)
-    :ets.insert(name, {cart_id, cart})
     {:reply, cart, name}
   end
 
