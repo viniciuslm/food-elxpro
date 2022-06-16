@@ -7,26 +7,24 @@ defmodule FoodElxproWeb.Admin.ProductLive.SelectPerPageTest do
 
   test "select per page",
        %{conn: conn} do
-    for _ <- 1..2, do: insert(:product)
+    [product_1, product_2, product_3, product_4, product_5] = for _ <- 1..5, do: insert(:product)
 
-    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index, page: 1, per_page: 2))
+
+    assert has_element?(view, "[data-role=product-item][data-id=#{product_1.id}]")
+    assert has_element?(view, "[data-role=product-item][data-id=#{product_2.id}]")
+    refute has_element?(view, "[data-role=product-item][data-id=#{product_3.id}]")
+    refute has_element?(view, "[data-role=product-item][data-id=#{product_4.id}]")
+    refute has_element?(view, "[data-role=product-item][data-id=#{product_5.id}]")
 
     view
-    |> form("#per-page")
-    |> render_change(%{select_per_page: 10})
+    |> form("#per-page", %{"per-page-select" => "5"})
+    |> render_change()
 
-    # assert_patched(
-    #   view,
-    #   "/admin/products?page=1&per_page=10&sort_by=updated_at&sort_order=desc&name="
-    # )
-
-    # view
-    # |> form("#per-page", %{select_per_page: 5})
-    # |> render_change()
-
-    # assert_patched(
-    #   view,
-    #   "/admin/products?page=1&per_page=5&sort_by=updated_at&sort_order=desc&name="
-    # )
+    assert has_element?(view, "[data-role=product-item][data-id=#{product_1.id}]")
+    assert has_element?(view, "[data-role=product-item][data-id=#{product_2.id}]")
+    assert has_element?(view, "[data-role=product-item][data-id=#{product_3.id}]")
+    assert has_element?(view, "[data-role=product-item][data-id=#{product_4.id}]")
+    assert has_element?(view, "[data-role=product-item][data-id=#{product_5.id}]")
   end
 end

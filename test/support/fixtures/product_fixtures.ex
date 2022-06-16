@@ -7,7 +7,7 @@ defmodule FoodElxpro.ProductFixtures do
       |> Enum.into(%{
         description: Faker.Food.description(),
         name: Faker.Food.dish(),
-        price: 200,
+        price: :rand.uniform(10_000),
         size: "small"
       })
       |> Products.create_product()
