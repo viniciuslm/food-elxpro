@@ -7,7 +7,7 @@ defmodule FoodElxproWeb.Admin.ProductLive.PaginateTest do
 
   test "clicking next, preview and page",
        %{conn: conn} do
-    for _ <- 1..10, do: insert(:product)
+    for _ <- 1..6, do: insert(:product)
 
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
