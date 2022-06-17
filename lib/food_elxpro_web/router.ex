@@ -23,6 +23,7 @@ defmodule FoodElxproWeb.Router do
     pipe_through :browser
 
     live "/", MainLive, :index
+    live "/cart", CartLive, :index
   end
 
   # Other scopes may use custom stacks.
