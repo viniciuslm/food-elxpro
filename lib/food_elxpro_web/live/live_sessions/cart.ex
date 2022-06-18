@@ -1,33 +1,47 @@
-defmodule LiveSessions.Permissions do
+defmodule LiveSessions.Cart do
   import Phoenix.LiveView
 
   alias FoodElxpro.Accounts
-  alias FoodElxproWeb.Router.Helpers, as: Routes
+  alias FoodElxpro.Carts
 
-  def on_mount(:admin, _params, %{"user_token" => user_token}, socket) do
-    assign_user(socket, :admin, user_token)
+  def on_mount(:default, _, session, socket) do
+    cart_id = get_connect_params(socket)["cart_id"]
+    user_token = session["user_token"]
+    socket = socket |> assign_user(user_token) |> create_cart(cart_id)
+    {:cont, socket}
   end
 
-  defp assign_user(socket, _, nil), do: error_login(socket, "You must be logged in")
+  defp assign_user(socket, nil), do: assign(socket, :current_user, nil)
 
-  defp assign_user(socket, :admin, user_token) do
-    user_token
-    |> Accounts.get_user_by_session_token()
-    |> return_socket(socket)
+  defp assign_user(socket, user_token) do
+    current_user =
+      user_token
+      |> Accounts.get_user_by_session_token()
+
+    assign_new(socket, :current_user, fn -> current_user end)
   end
 
-  defp return_socket(%{role: role}, socket) when role != :ADMIN,
-    do: error_login(socket, "You don't have permissions to access this page")
+  defp create_cart(socket, cart_id) do
+    current_user = socket.assigns.current_user
 
-  defp return_socket(current_user, socket),
-    do: {:cont, assign_new(socket, :current_user, fn -> current_user end)}
+    cart_id = build_cart_id(current_user, cart_id)
 
-  defp error_login(socket, message) do
-    socket =
-      socket
-      |> put_flash(:error, message)
-      |> redirect(to: Routes.main_path(socket, :index))
+    socket
+    |> assign(cart_id: cart_id)
+    |> push_event("create-cart-session-id", %{"cartId" => cart_id})
+  end
 
-    {:halt, socket}
+  defp build_cart_id(nil, nil) do
+    cart_id = Ecto.UUID.generate()
+    return_cart_id(cart_id)
+  end
+
+  defp build_cart_id(nil, cart_id), do: return_cart_id(cart_id)
+
+  defp build_cart_id(%{id: cart_id}, _cart_id), do: return_cart_id(cart_id)
+
+  defp return_cart_id(cart_id) do
+    Carts.create(cart_id)
+    cart_id
   end
 end
