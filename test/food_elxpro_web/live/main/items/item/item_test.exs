@@ -26,4 +26,17 @@ defmodule FoodElxproWeb.Main.ItemTest do
 
     assert has_element?(view, "[data-role=product-add][data-id=item-#{product.id}]")
   end
+
+  test "when click add, display success message", %{conn: conn} do
+    product = insert(:product)
+    {:ok, view, _html} = live(conn, Routes.main_path(conn, :index))
+
+    {:ok, _, html} =
+      view
+      |> element("[data-role=product-add][data-id=item-#{product.id}]")
+      |> render_click()
+      |> follow_redirect(conn, Routes.main_path(conn, :index))
+
+    assert html =~ "Item added to cart"
+  end
 end

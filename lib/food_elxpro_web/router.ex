@@ -22,8 +22,10 @@ defmodule FoodElxproWeb.Router do
   scope "/", FoodElxproWeb do
     pipe_through :browser
 
-    live "/", MainLive, :index
-    live "/cart", CartLive, :index
+    live_session :create_cart_session, on_mount: LiveSessions.Cart do
+      live "/", MainLive, :index
+      live "/cart", CartLive, :index
+    end
   end
 
   # Other scopes may use custom stacks.
