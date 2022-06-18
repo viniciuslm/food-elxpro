@@ -2,7 +2,6 @@ defmodule LiveSessions.Permissions do
   import Phoenix.LiveView
 
   alias FoodElxpro.Accounts
-  alias FoodElxpro.Carts
   alias FoodElxproWeb.Router.Helpers, as: Routes
 
   def on_mount(:admin, _params, %{"user_token" => user_token}, socket) do
