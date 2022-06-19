@@ -1,4 +1,4 @@
-defmodule FoodElxproWeb.Admin.Products.Form do
+defmodule FoodElxproWeb.Admin.Product.Form do
   use FoodElxproWeb, :live_component
   alias FoodElxpro.Products
 
