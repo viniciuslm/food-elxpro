@@ -39,8 +39,8 @@
                     <span data-role="customer-email" data-id={@id} class="font-bold"><%= @card.user.email %></span>
                 </li>
                 <%= if @card.status == :DELIVERED do %>
-                <li class="mb-1 flex justify-between link">
-                    <a href="#">
+                <li>
+                    <a href="#" class="mb-1 flex justify-between link">
                         <span data-role="delivered-text" data-id={@id} class="primary">Delivery at:</span>
                         <span data-role="delivered" data-id={@id} class="font-bold"><%= @card.updated_at %></span>
                     </a>
