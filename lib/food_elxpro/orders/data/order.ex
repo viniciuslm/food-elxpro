@@ -4,9 +4,9 @@ defmodule FoodElxpro.Orders.Data.Order do
   alias FoodElxpro.Accounts.User
   alias FoodElxpro.Orders.Data.Item
 
-  @status_value ~w/NOT_STARTED RECEIVED PREPARING DELIVERING DELIVERED/a
-  @field ~w/status/a
-  @required_field ~w/total_price total_quantity user_id address phone_number/a
+  @status_value [:NOT_STARTED, :RECEIVED, :PREPARING, :DELIVERING, :DELIVERED]
+  @field [:status]
+  @required_field [:total_price, :total_quantity, :user_id, :address, :phone_number]
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "orders" do
@@ -25,8 +25,8 @@ defmodule FoodElxpro.Orders.Data.Order do
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [@field ++ @required_field])
-    |> validate_required([@required_field])
+    |> cast(attrs, @field ++ @required_field)
+    |> validate_required(@required_field)
     |> validate_number(:total_quantity, greater_than: 0)
     |> cast_assoc(:items, with: &Item.changeset/2)
   end
