@@ -27,8 +27,6 @@ defmodule FoodElxproWeb.Admin.OrderLive.SideMenuTest do
 
       assert has_element?(view, "[data-role=all-delivered]", "Delivered")
       assert has_element?(view, "[data-role=all-delivered-qty]", "20")
-
-      # open_browser(view)
     end
   end
 end
