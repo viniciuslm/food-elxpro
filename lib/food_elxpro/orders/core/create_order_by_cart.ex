@@ -35,6 +35,7 @@ defmodule FoodElxpro.Orders.Core.CreateOrderByCart do
   defp remove_cache({:error, _} = err), do: err
 
   defp remove_cache({:ok, order} = result) do
+    Carts.delete(order.user_id)
     result
   end
 end

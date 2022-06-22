@@ -8,4 +8,5 @@ defmodule FoodElxpro.Carts do
   def inc(cart_id, product_id), do: GenServer.call(:cart_session, {:inc, cart_id, product_id})
   def dec(cart_id, product_id), do: GenServer.call(:cart_session, {:dec, cart_id, product_id})
   def get(cart_id), do: GenServer.call(:cart_session, {:get, cart_id})
+  def delete(cart_id), do: GenServer.cast(:cart_session, {:delete, cart_id})
 end
