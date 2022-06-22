@@ -1,6 +1,7 @@
 defmodule FoodElxpro.Orders.Core.CreateOrderByCart do
   alias FoodElxpro.Carts
   alias FoodElxpro.Orders.Data.Order
+  alias FoodElxpro.Orders.Events.NewOrder
   alias FoodElxpro.Repo
 
   def execute(%{"current_user" => current_user} = payload) do
@@ -9,6 +10,7 @@ defmodule FoodElxpro.Orders.Core.CreateOrderByCart do
     |> convert_session_to_payload_item
     |> create_order_payload(payload)
     |> Repo.insert()
+    |> NewOrder.broadcast()
     |> remove_cache()
   end
 
@@ -33,6 +35,7 @@ defmodule FoodElxpro.Orders.Core.CreateOrderByCart do
   defp remove_cache({:error, _} = err), do: err
 
   defp remove_cache({:ok, order} = result) do
+    Carts.delete(order.user_id)
     result
   end
 end

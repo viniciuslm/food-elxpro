@@ -18,6 +18,11 @@ defmodule FoodElxpro.Carts.Boundary.CartSession do
     {:noreply, name}
   end
 
+  def handle_cast({:delete, cart_id}, name) do
+    :ets.delete(name, cart_id)
+    {:noreply, name}
+  end
+
   def handle_call({:add, cart_id, product}, _from, name) do
     {:ok, cart} = find_cart(name, cart_id)
     cart = Cart.add(cart, product)
@@ -47,8 +52,10 @@ defmodule FoodElxpro.Carts.Boundary.CartSession do
   end
 
   def handle_call({:get, cart_id}, _from, name) do
-    {:ok, cart} = find_cart(name, cart_id)
-    {:reply, cart, name}
+    case find_cart(name, cart_id) do
+      {:ok, cart} -> {:reply, cart, name}
+      {:not_found, []} -> {:reply, [], name}
+    end
   end
 
   defp find_cart(name, cart_id) do
