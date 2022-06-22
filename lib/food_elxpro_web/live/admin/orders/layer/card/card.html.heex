@@ -1,7 +1,7 @@
 <li id={@id} class="block p-5 mb-5 bg-white rounded-md shadow">
     <a href="">
         <div class="flex justify-between mb-2">
-            <p class="text-small font-medium leading snug text-gray-900" data-role="card-number" data-id={@id}>
+            <p class="text-small font-medium leading snug text-gray-900" data-role={"card-" <> @board_id} data-id={@id}>
                 <%= @id %>
             </p>
             <span><img src={Routes.static_path(@socket, "/images/delivery-icon.svg")} alt="" class="rounded-full h-16 w-16" /></span>
