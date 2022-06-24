@@ -96,6 +96,10 @@ defmodule FoodElxproWeb.Router do
         live "/products/:id", ProductLive.Show, :show
       end
     end
+
+    scope "/customer", Customer, as: :customer do
+      live "/orders", OrderLive, :index
+    end
   end
 
   scope "/", FoodElxproWeb do
