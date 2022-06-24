@@ -1,6 +1,7 @@
 defmodule FoodElxpro.Orders do
   alias FoodElxpro.Orders.Core.{
     AllStatusOrders,
+    CreateOrderByCart,
     GetOrderByIdAndCustomerId,
     ListOrdersByStatus,
     ListOrdersByUserId,
@@ -10,6 +11,8 @@ defmodule FoodElxpro.Orders do
   alias FoodElxpro.Orders.Events.{NewOrder, UpdateOrder}
 
   defdelegate all_status_orders, to: AllStatusOrders, as: :execute
+
+  defdelegate create_order_by_cart(payload), to: CreateOrderByCart, as: :execute
 
   defdelegate get_order_by_id_and_customer_id(order_id, customer_id),
     to: GetOrderByIdAndCustomerId,
