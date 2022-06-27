@@ -17,8 +17,8 @@ defmodule FoodElxpro.Factory do
 
   def order_factory(attrs) do
     user =
-      if attrs["user"] do
-        attrs["user"]
+      if attrs[:user] do
+        attrs[:user]
       else
         %User{}
         |> User.registration_changeset(%{
