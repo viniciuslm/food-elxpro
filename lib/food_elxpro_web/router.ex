@@ -97,8 +97,10 @@ defmodule FoodElxproWeb.Router do
       end
     end
 
-    scope "/customer", Customer, as: :customer do
-      live "/orders", OrderLive, :index
+    live_session :is_user, on_mount: {LiveSessions.Permissions, :user} do
+      scope "/customer", Customer, as: :customer do
+        live "/orders", OrderLive, :index
+      end
     end
   end
 
