@@ -9,7 +9,7 @@
             <%= if @current_user do %>
             <%= if @current_user.role == :ADMIN do %>
             <li class="ml-6"><%= link "Admin Products", to: Routes.admin_product_path(@conn, :index) %></li>
-            <li class="ml-6"><%= link "Admin Products", to: Routes.admin_product_path(@conn, :index) %></li>
+            <li class="ml-6"><%= link "Admin Orders", to: Routes.admin_order_path(@conn , :index) %></li>
             <% else %>
             <li class="ml-6"><%= link "My Orders", to: Routes.customer_order_path(@conn, :index) %></li>
             <% end %>
