@@ -10,7 +10,7 @@ defmodule FoodElxproWeb.Customer.OrderLive.Status do
   @impl true
   def handle_params(%{"id" => id}, _uri, socket) do
     if connected?(socket) do
-      Orders.subscribe_update_user_row(id)
+      Orders.subscribe_update_orders(id)
     end
 
     current_user = socket.assigns.current_user
@@ -34,7 +34,7 @@ defmodule FoodElxproWeb.Customer.OrderLive.Status do
   end
 
   @impl true
-  def handle_info({:update_order_user_row, order}, socket) do
+  def handle_info({:update_order, order}, socket) do
     current_status = get_current_status(order.status)
     socket = assign(socket, current_status: current_status)
     {:noreply, socket}
