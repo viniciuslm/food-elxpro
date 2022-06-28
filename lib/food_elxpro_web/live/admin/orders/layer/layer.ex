@@ -8,4 +8,22 @@ defmodule FoodElxproWeb.Admin.OrderLive.Layer do
 
     {:ok, socket |> assign(assigns) |> assign(cards: cards)}
   end
+
+  def handle_event(
+        "dropped",
+        %{"new_status" => new_status, "old_status" => old_status},
+        socket
+      )
+      when new_status == old_status do
+    {:noreply, socket}
+  end
+
+  def handle_event(
+        "dropped",
+        %{"order_id" => order_id, "new_status" => new_status, "old_status" => old_status},
+        socket
+      ) do
+    Orders.update_order_status(order_id, new_status, old_status)
+    {:noreply, socket}
+  end
 end
