@@ -248,3 +248,8 @@ section.login a:hover {
         opacity: 0;
     }
 }
+
+section.status{
+    background: var(--third);
+    min-height: calc(100vh - 86px3)
+}
