@@ -15,4 +15,10 @@ defmodule FoodElxproWeb.Customer.OrderLive do
 
     {:ok, assign(socket, orders: orders)}
   end
+
+  @impl true
+  def handle_info({:update_order_user_row, order}, socket) do
+    send_update(OrderNow, id: order.id, order: order)
+    {:noreply, socket}
+  end
 end
