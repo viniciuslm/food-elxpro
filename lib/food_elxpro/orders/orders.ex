@@ -8,6 +8,7 @@ defmodule FoodElxpro.Orders do
     UpdateOrderStatus
   }
 
+  alias FoodElxpro.Orders.Data.Order
   alias FoodElxpro.Orders.Events.{NewOrder, UpdateOrder}
 
   defdelegate all_status_orders, to: AllStatusOrders, as: :execute
@@ -29,4 +30,10 @@ defmodule FoodElxpro.Orders do
   defdelegate update_order_status(order_id, new_status, old_status),
     to: UpdateOrderStatus,
     as: :execute
+
+  def get_status_list do
+    Order
+    |> Ecto.Enum.values(:status)
+    |> Enum.with_index()
+  end
 end
