@@ -4,27 +4,27 @@
         <div class="mt-2 mx-3">
             <a hef="#" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
                 <span class="text-small font-medium text-gray-900" data-role="all-orders">All</span>
-                <span class="text-small font-semibold text-gray-700" data-role="all-orders-qty">30</span>
+                <span class="text-small font-semibold text-gray-700" data-role="all-orders-qty"><%= @orders_status.all %></span>
             </a>
             <a hef="#" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
                 <span class="text-small font-medium text-gray-900" data-role="all-not-started">Not Started</span>
-                <span class="text-small font-semibold text-gray-700" data-role="all-not-started-qty">3</span>
+                <span class="text-small font-semibold text-gray-700" data-role="all-not-started-qty"><%= @orders_status.not_started %></span>
             </a>
             <a hef="#" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
                 <span class="text-small font-medium text-gray-900" data-role="all-received">Received</span>
-                <span class="text-small font-semibold text-gray-700" data-role="all-received-qty">5</span>
+                <span class="text-small font-semibold text-gray-700" data-role="all-received-qty"><%= @orders_status.received %></span>
             </a>
             <a hef="#" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
                 <span class="text-small font-medium text-gray-900" data-role="all-preparing">Preparing</span>
-                <span class="text-small font-semibold text-gray-700" data-role="all-preparing-qty">3</span>
+                <span class="text-small font-semibold text-gray-700" data-role="all-preparing-qty"><%= @orders_status.preparing %></span>
             </a>
             <a hef="#" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
                 <span class="text-small font-medium text-gray-900" data-role="all-delivering">Delivering</span>
-                <span class="text-small font-semibold text-gray-700" data-role="all-delivering-qty">2</span>
+                <span class="text-small font-semibold text-gray-700" data-role="all-delivering-qty"><%= @orders_status.delivering %></span>
             </a>
             <a hef="#" class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-lg mb-2">
                 <span class="text-small font-medium text-gray-900" data-role="all-delivered">Delivered</span>
-                <span class="text-small font-semibold text-gray-700" data-role="all-delivered-qty">20</span>
+                <span class="text-small font-semibold text-gray-700" data-role="all-delivered-qty"><%= @orders_status.delivered %></span>
             </a>
         </div>
     </nav>

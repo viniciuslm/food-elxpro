@@ -1,69 +1,29 @@
 defmodule FoodElxproWeb.Admin.OrderLive.Layer do
   use FoodElxproWeb, :live_component
   alias __MODULE__.Card
+  alias FoodElxpro.Orders
 
-  @status [:NOT_STARTED, :DELIVERED]
-
-  def update(assigns, socket) do
-    cards = [
-      %{
-        id: Ecto.UUID.generate(),
-        user: %{
-          email: "viniciuslm@gmail.com"
-        },
-        status: @status |> Enum.shuffle() |> hd,
-        updated_at: DateTime.utc_now(),
-        total_price: Money.new(1_000),
-        total_quantity: 2,
-        items: [
-          %{
-            id: Ecto.UUID.generate(),
-            quantity: 1,
-            product: %{
-              name: "abobora",
-              price: Money.new(200)
-            }
-          },
-          %{
-            id: Ecto.UUID.generate(),
-            quantity: 1,
-            product: %{
-              name: "banana",
-              price: Money.new(100)
-            }
-          }
-        ]
-      },
-      %{
-        id: Ecto.UUID.generate(),
-        user: %{
-          email: "viniciuslm@gmail.com"
-        },
-        status: @status |> Enum.shuffle() |> hd,
-        updated_at: DateTime.utc_now(),
-        total_price: Money.new(1_000),
-        total_quantity: 2,
-        items: [
-          %{
-            id: Ecto.UUID.generate(),
-            quantity: 1,
-            product: %{
-              name: "abobora",
-              price: Money.new(200)
-            }
-          },
-          %{
-            id: Ecto.UUID.generate(),
-            quantity: 1,
-            product: %{
-              name: "banana",
-              price: Money.new(100)
-            }
-          }
-        ]
-      }
-    ]
+  def update(%{id: id} = assigns, socket) do
+    cards = Orders.list_orders_by_status(id)
 
     {:ok, socket |> assign(assigns) |> assign(cards: cards)}
+  end
+
+  def handle_event(
+        "dropped",
+        %{"new_status" => new_status, "old_status" => old_status},
+        socket
+      )
+      when new_status == old_status do
+    {:noreply, socket}
+  end
+
+  def handle_event(
+        "dropped",
+        %{"order_id" => order_id, "new_status" => new_status, "old_status" => old_status},
+        socket
+      ) do
+    Orders.update_order_status(order_id, new_status, old_status)
+    {:noreply, socket}
   end
 end
