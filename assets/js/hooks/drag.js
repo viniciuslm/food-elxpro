@@ -10,7 +10,6 @@ const Drag = {
             group: 'shared',
             draggable: '.draggable',
             onEnd: function(evt) {
-                console.log(evt)
                 hook.pushEventTo(selector, 'dropped', {
                     order_id: evt.item.id,
                     new_status: evt.to.id,
